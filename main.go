@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net"
+   "bufio"
 )
 
 func main() {
@@ -15,6 +16,11 @@ func main() {
 		fmt.Fprintf(conn, "JOIN #jasper\n")
 	}
 
+   reader := bufio.NewReader(conn)	
 	for {
+		line, _, err := reader.ReadLine()
+		if err == nil {
+         fmt.Printf("%s\n", line)
+      }
 	}
 }
