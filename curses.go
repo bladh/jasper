@@ -1,17 +1,18 @@
 package main
 
-import "github.com/tncardoso/gocurses"
+import (
+	"code.google.com/p/goncurses"
+	"log"
+	"time"
+)
 
 func main() {
-	gocurses.Initscr()
-	defer gocurses.End()
-	gocurses.Cbreak()
-	gocurses.Noecho()
-	gocurses.Stdscr.Keypad(true)
-
-	gocurses.Attron(gocurses.A_BOLD)
-	gocurses.Addstr("Hello World")
-	gocurses.Refresh()
-
-	gocurses.Stdscr.Getch()
+	stdscr, err := goncurses.Init()
+	if err != nil {
+		log.Fatal("init:", err)
+	}
+	defer goncurses.End()
+	stdscr.Print("Hello goncurses")
+	stdscr.Refresh()
+	time.Sleep(2 * time.Second)
 }
